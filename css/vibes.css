@@ -1,0 +1,17 @@
+.result,
+.likes {
+  padding: 3rem 0; }
+  .result__list,
+  .likes__list {
+    list-style: none; }
+  .result:link, .result:visited,
+  .likes:link,
+  .likes:visited {
+    color: rgba(0, 0, 0, 0.7); }
+
+.list__item {
+  border-bottom: 1px solid #eee; }
+  .list__item:first-child {
+    border-top: 1px solid #eee; }
+  .list__item:nth-child(even) {
+    background-color: blue; }

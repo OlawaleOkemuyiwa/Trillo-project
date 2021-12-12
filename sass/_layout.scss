@@ -1,0 +1,97 @@
+.container {
+    max-width: 120rem;
+    margin: 8rem auto;
+    box-shadow: var(--shadow-dark);
+    background-color: var(--color-grey-light-1);  //on the long run this won't be visible as all 3 child components have their own bvackground color
+
+    min-height: 50rem;
+
+    @media only screen and (max-width: $bp-largest) {
+        margin: 0;
+        max-width: 100%;
+        width: 100%;
+    }
+}
+
+.header {
+    height: 7rem;
+    font-size: 1.4rem;
+    background-color: #fff;
+    border-bottom: var(--line-grey);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media only screen and (max-width: $bp-smallest) {
+        flex-wrap: wrap;
+        align-content: space-evenly;
+        height: 11rem;
+    }
+}
+
+.content {
+    display: flex;
+
+    @media only screen and (max-width: $bp-medium) {
+        flex-direction: column;
+    }
+}
+
+.sidebar {
+    flex: 0 0 18%;              //CCC1-flex: flex grow 0(no grow, default value is 0 i.e no grow) | flex shrink 0 (no shrink, default value is 1 i.e if there's no enough space available in the container's main axis, shrink by a factor of 1) | flex basis: width(if main axis is row)/height(if main axis is column) of the flex e.g 20%, 4rem, or keyword(default value is auto)
+    background-color: var(--color-grey-dark-1);
+
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+}
+
+.hotel-view {
+    flex: 1;                    //CCC2==flex: 1 1 0 i.e grow and occupy all the available space it can in the flex container, (the other flex item has 0 grow but a defined width) 
+    background-color: #fff;
+}
+
+.detail {
+    font-size: 1.4rem;
+    padding: 4.5rem;
+    background-color: var(--color-grey-light-1);
+    border-bottom: var(--line-grey);
+
+    display: flex;
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 3rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        flex-direction: column;
+    }
+}
+
+.description {
+    flex: 0 0 60%;
+    margin-right: 4.5rem;  //CCC4: description with a width of 60% of the containing width and a margin of 45px with the other flex item with flex 1 to occupy all the space left
+    padding: 3rem;
+    background-color: #fff;
+    box-shadow: var(--shadow-light);
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2rem;
+        margin-right: 3rem;
+    }
+
+    @media only screen and (max-width: $bp-small) {
+        margin-right: 0;
+        margin-bottom: 3rem;
+    }
+}
+
+.user-reviews {
+    flex: 1;
+
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+

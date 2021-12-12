@@ -1,0 +1,630 @@
+.u-center-text {
+    text-align: center;
+}
+
+/////////////////////////
+//STYLING OF THE ELEMENTS IN THE HEADER CONTAINER
+.logo {
+    height: 3.5rem;  //CCC: on img elements set height, let the img choose the width that would maintain its aspect ratio
+    margin-left: 2rem;
+}
+
+.search {
+    flex: 0 0 40%;  //0 grow, 0 shrink, width: 40% of header containing width
+
+    display: flex;
+    justify-content: center;
+    align-items: center;
+
+    @media only screen and (max-width: $bp-smallest) {
+        order: 1;               //CCC8 the default order for all flex items is 0, so they line up side by side acccording to the markup order. An order higher than 0 would make sure element the last amongst the other flex items in a container 
+        flex: 0 0 100%;
+        background-color: var(--color-grey-light-2);
+    }
+
+    &__input {
+        font-family: inherit;
+        font-size: inherit;
+        font-weight: inherit;
+        color: inherit;
+        border: none;
+        width: 90%;
+        background-color: var(--color-grey-light-2);
+        border-radius: 100px;
+        padding: .7rem 2rem;
+        margin-right: -3.25rem;  //CCC:to make the inline btn overlap unto the inline-block input field
+        transition: all .2s;
+
+        &:focus {   
+            outline: none;
+            width: 100%;
+            background-color: var(--color-grey-light-3);
+        }
+
+        &::placeholder {
+            font-weight: 100;
+            color: var(--color-grey-light-4);
+        }
+    }
+
+    &__input:focus + &__btn {
+        background-color: var(--color-grey-light-3);
+    }
+
+    &__btn {
+        border: none;
+        background-color: var(--color-grey-light-2);
+        transition: all .2s;
+
+        &:focus {
+            outline: none;
+        }
+
+        &:active {
+            transform: translateY(2px);
+        }  
+    }
+
+    &__icon {       //CCC: on svg(element) icons set both width and height 
+        height: 2rem;
+        width: 2rem;
+        fill: var(--color-grey-dark-3); //CCC: fill== color of an svg icon
+    }
+}
+
+.user-nav {
+    align-self: stretch;
+
+    display: flex;  //only to make icon-boxes, user-nav be in a row sidebyside
+
+    & > * {
+        height: 100%;
+        padding: 0 2rem;
+        cursor: pointer;
+
+        display: flex;
+        align-items: center;
+
+        &:hover {
+            background-color: var(--color-grey-light-2);
+        } 
+    }
+
+    &__icon-box {
+        position: relative;
+    }
+    
+    &__icon-box:hover &__notification {
+        background-color: var(--color-primary-light);
+    }
+
+    &__icon {
+        height: 2.25rem;
+        width: 2.25rem;
+        fill: var(--color-grey-dark-2);
+    }
+
+    &__notification {
+        font-size: .8rem;
+        color: #ffffff;
+        height: 1.75rem;
+        width: 1.75rem;
+        border-radius: 50%;
+        background-color: var(--color-primary);
+        position: absolute;
+        top: 1.5rem;
+        right: 1.1rem;
+        transition: all .1s;
+
+        display: flex;   //CCC: flexbox can also be used to center text in its container
+        justify-content: center;
+        align-items: center;
+    }
+
+    &__user-photo {
+        height: 3.75rem;
+        border-radius: 50%;
+        margin-right: 1rem;
+    }
+}
+
+///////////////////////////////////////
+//STYLING OF THE ELEMENTS IN THE SIDEBAR CONTAINER
+.side-nav {   //unordered list ul 
+    list-style: none;
+    font-size: 1.4rem;
+    margin-top: 3.5rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        margin-top: 0;
+
+        display: flex;
+    }
+
+    &__item {
+        position: relative;
+        
+
+        @media only screen and (max-width: $bp-medium) {
+            flex: 1;        //CCC7: each flex(list) items with flex 0f 1 so each grows equally as much as they can in the containing width
+        }
+
+        &:not(:last-child) {
+            margin-bottom: .5rem;
+
+            @media only screen and (max-width: $bp-medium) {
+                margin-bottom: 0;  
+            }
+        }
+    }
+
+    &__item::before {  //the absolutely positioned first child on the list item that serves as the flowing pink background
+        content: "";
+        position: absolute;
+        top: 0;
+        left: 0;
+        height: 100%;
+        width: 3px;
+        background-color: var(--color-primary);
+        transform: scaleY(0);                    //initially scaled down to 0 and then to 1 on hover of the list item. So it looks like it zooms out in the Y direction(both upwards and downwards) from the center
+        //transform-origin: bottom;             //CCC: usually set to center. If set to bottom(we can also have top), scaling starts from the bottom instead of default center
+        transition: transform .2s,
+                    width .4s cubic-bezier(1,0,0,1) .2s;    //CCC: the width transistion of .4s from 3px to 100% is delayed by .2s(same time it takes the transform to achieve its transisition) i.e wait .2s while transform happens, then increase width immediately after
+                    background-color: .1s;
+        }
+
+    &__item:hover::before,
+    &__item--active::before {  //an active modifier class is given to the 1st list item and it is styled the same way any of the hovered list item is.
+        transform: scaleY(1);
+        width: 100%;
+    }
+
+    &__item:active::before {
+        background-color: var(--color-primary-light);
+    }
+
+    &__link {
+        &:link,
+        &:visited {
+            text-decoration: none;
+            color: var(--color-grey-light-1);
+            text-transform: uppercase;
+            display: block;
+            padding: 1.5rem 3rem;
+            position: relative;
+            z-index: 10;
+
+            display: flex;
+            align-items: center;
+
+            @media only screen and (max-width: $bp-medium) {
+                justify-content: center;
+                padding: 2rem;
+            }
+
+            @media only screen and (max-width: $bp-small) {
+                flex-direction: column;
+                padding: 1rem;
+            }
+        }
+    }
+
+    &__icon {
+        height: 1.75rem;
+        width: 1.75rem;
+        fill: currentColor;  //CCC:currentColor == font color of current element if it has one or that of its parent(or nearest ancestor) element 
+        margin-right: 1rem;
+
+        @media only screen and (max-width: $bp-small) {
+            height: 1.5rem;
+            width: 1.5rem;
+            margin-right: 0;
+            margin-bottom: .7rem;
+        }
+    }
+}
+
+.legal {
+    font-size: 1rem;
+    color: var(--color-grey-light-4);
+    text-align: center;
+    padding: 1rem;
+
+    @media only screen and (max-width: $bp-medium) {
+        display: none;
+    }
+
+    &__link {
+        &:link,
+        &:visited {
+            text-decoration: none;
+            color: inherit;
+            transition: all .1s;
+        }
+
+        &:hover,
+        &:active {
+            color: var(--color-grey-light-1);
+        }
+    }
+}
+
+//////////////////////////////////////////////
+//STYLING OF THE ELEMENTS IN THE HOTEL-VIEW CONTAINER
+
+//GALLERY CONTAINER 
+.gallery {
+    display: flex;
+
+    // &__figure {         //CCC:normally without flex we would have had to set the width of each figure to 33.33333% so the 3 block figure could fit in the gallery containing width. But display flex on the gallery automatically put the figure elements side by side
+        
+    // }
+
+    &__photo {
+        height: 100%;
+        width: 100%;
+    }
+}
+
+//OVERVIEW CONTAINER
+.overview {
+    border-bottom: var(--line-grey);
+
+    display: flex; //make the now flex items side by side
+    align-items: center;
+
+    &__heading {
+        font-size: 2.25rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        letter-spacing: 1px;
+        padding: 1.5rem 3rem;
+
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+            padding: 1rem 2rem;
+        }
+    }
+
+    &__stars {
+        margin-right: auto;  //CCC3: to automatically give a space between the flex item and the other other flex items to the right
+    
+        display: flex;  //to make each icon star become flex items sitting side-by-side centered vertically. Also the stars container now have the same height as the stars themselves 
+    }
+
+    &__icon-star,
+    &__icon-location {
+        height: 1.75rem;
+        width: 1.75rem;
+        fill: var(--color-primary);
+    }
+
+    &__icon-location {
+        margin-right: 2px;
+    }
+
+    &__location {
+        font-size: 1.2rem;
+        margin-right: 3rem;
+        
+        display: flex;
+        align-items: center;
+    }
+
+    &__rating {
+        align-self: stretch;
+        background-color: var(--color-primary);
+        color: #ffffff;
+        padding: 0 2.25rem;
+
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        align-items: center;
+
+        @media only screen and (max-width: $bp-small) {
+            padding: 0 1.5rem;
+        }
+    }
+
+    &__rating-average {
+        font-size: 2.25rem;
+        font-weight: 300;
+        margin-bottom: -3px;
+
+        @media only screen and (max-width: $bp-small) {
+            font-size: 1.8rem;
+        }
+    }
+
+    &__rating-count {
+        font-size: .8rem;
+        text-transform: uppercase;
+    }
+}
+
+.btn-inline {
+    border: none;
+    color: var(--color-primary);
+    font-size: inherit;
+    background-color: transparent;
+    padding-bottom: 2px;
+    border-bottom: 1px solid currentColor;
+    cursor: pointer;
+    margin-top: 3px;
+    transition: all .2s;
+
+    span {
+        margin-left: 3px;
+        transition: margin-left .2s;        //CCC. Specify the specific property of a child in transistion that has a parent with transisition all 
+    }
+
+    &:hover {
+        color: var(--color-grey-dark-1);
+
+        span {
+            margin-left: .7rem;
+        }
+    }
+
+    &:focus {
+        outline: none;
+        animation: pulsate 1s infinite;
+    }
+}
+
+@keyframes pulsate {  //CCC
+    0% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+    50% {
+        transform: scale(1.05);
+        box-shadow: 0 1rem 4rem rgba(0,0,0, 0.25);
+    }
+    100% {
+        transform: scale(1);
+        box-shadow: none;
+    }
+}
+
+//DETAIL CONTAINER 
+.paragraph {
+    &:not(:last-of-type) {
+        margin-bottom: 2rem;
+    }
+}
+
+.list {
+    list-style: none;
+    margin: 3rem 0;
+    padding: 3rem 0 2.3rem;  //2.3rem bottom + .7rem bottom of the last 2 items = 3rem top
+    border-top: var(--line-grey);
+    border-bottom: var(--line-grey);
+
+    display: flex;                  //to squeeze all the list items side by side all in ul list container width with all in a single row(no wrap yet) 
+    flex-wrap: wrap;                //CCC5: to make the list items flow to the next row so we have more than one main axis row
+    
+    &__item {
+        flex: 0 0 50%;              //CCC6:each list item is given the width 50%, so there are 2 list items in a row in the containing width, 2 in the next, 2 in the next row.
+        margin-bottom: .7rem;
+
+        &::before {
+            content: "";   
+            display: inline-block;
+            fill: var(--color-primary);
+            height: 1rem;
+            width: 1rem;
+            margin-right: .5rem;
+
+            //for older browsers
+            background-image: url("../img/chevron-thin-right.svg");          //its easier to use the sprite.svg and select the icon needed in HTML while also easier to use only the needed single icon in CSS
+            background-size: cover;
+
+            //for newer browsers that support mask-image
+            @supports (-webkit-mask-image: url()) or (mask-image: url()) { 
+                background-image: none;
+                background-color: var(--color-primary);
+                -webkit-mask-image: url("../img/chevron-thin-right.svg");
+                mask-image: url("../img/chevron-thin-right.svg");                   //CCC:a mask defines the area where we can look through to see the element it is being used on. Its just like using background-clip text and setting the color of such text to transparent but instead of text, an svg icon is used here
+                -webkit-mask-size: cover;
+                mask-size: cover;
+            }
+            
+        }
+    }
+}
+
+.recommend {
+    font-size: 1.2rem;
+    color: var(--color-grey-dark-3);
+
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+
+    @media only screen and (max-width: $bp-small) {
+        justify-content: space-evenly;
+    }
+
+    &__friends {
+        display: flex;  //to make the img flex items always be side by side all the time
+    }
+
+    &__photo {
+        box-sizing: content-box;                //CCC:border-box includes the border and padding into the height and width set on the element. In this case, the added border reduced the img size(height and width) so its set to content box so the img is till 4rem height 4rem width no matter the padding or border added 
+        height: 4rem;
+        width: 4rem;
+        border-radius: 50%;
+        border: 3px solid #fff;
+
+        &:not(:first-child) {
+            margin-left: -2rem;
+        }
+    }
+}
+
+.review {
+    background-color: #ffffff;
+    box-shadow: var(--shadow-light);
+    padding: 3rem;
+    margin-bottom: 3.5rem;
+    position: relative;
+    overflow: hidden;
+
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2rem;
+        margin-bottom: 3rem;
+    }
+
+    &::before {
+        content: "\201C";
+        line-height: 1;
+        font-size: 20rem;
+        font-family: sans-serif;
+        color: var(--color-grey-light-2);
+        position: absolute;
+        top: -2.75rem;
+        left: -1rem;
+        z-index: 1;
+
+        @media only screen and (max-width: $bp-medium) {
+            font-size: 15rem;
+            top: -2rem;
+        }
+    }
+
+    &__text {
+        margin-bottom: 2rem;
+        position: relative;
+        z-index: 10;
+    }
+
+    &__user {
+        display: flex;
+        align-items: center;
+    }
+    
+    &__photo {
+        height: 4.5rem;
+        width: 4.5rem;
+        border-radius: 50%;
+        margin-right: 1.5rem;
+    }
+
+    &__user-box {
+        margin-right: auto;
+    }
+
+    &__user-name {
+        font-size: 1.1rem;
+        font-weight: 600;
+        text-transform: uppercase;
+        margin-bottom: .4rem;
+    }
+
+    &__user-date {
+        font-size: 1rem;
+        color: var(--color-grey-dark-3);
+    }
+
+    &__rating {
+        font-size: 2.2rem;
+        color: var(--color-primary);
+        font-weight: 300;
+    }
+}
+
+.cta {          //CCC: cta = call to action
+    padding: 3rem 0;
+    text-align: center;
+    
+    @media only screen and (max-width: $bp-medium) {
+        padding: 2rem 0;
+    }
+
+    &__text {
+        font-size: 2rem;
+        font-weight: 300;
+        text-transform: uppercase;
+        color: var(--color-grey-dark-2);
+        margin-bottom: 2rem;
+    }
+
+}
+
+.btn {
+    border: none;
+    font-size: 1.5rem;
+    font-weight: 300;
+    text-transform: uppercase;
+    color: #fff;
+    border-radius: 100px;
+    cursor: pointer;
+    background-image: linear-gradient(
+        to right,
+        var(--color-primary-light),
+        var(--color-primary-dark)
+    );
+    position: relative;
+    overflow: hidden;
+
+    & > * {   //CCC:select all direct child elements of this element 
+        height: 100%;
+        width: 100%;
+        transition: all .2s;
+    }
+    
+    &__visible {
+        display: inline-block;
+        padding: 2rem 7.5rem;
+    }
+
+    &__invisible {
+        padding: 2rem 0;
+        position: absolute;
+        left: 0;
+        top: -100%;         //CCC: move it up(i.e towards the top) by exactly the size of the element it is positioned relative to(in this case the btn parent element)   
+    }
+
+    &:hover  {
+        background-image: linear-gradient(
+            to left,
+            var(--color-primary-light),
+            var(--color-primary-dark)
+        );
+
+        .btn__visible {
+            transform: translateY(100%);  //translate 100% of its height down
+        }
+
+        .btn__invisible {
+            top: 0;
+        }
+    }
+
+    &:focus {
+        outline: none;
+        animation: pulsate 1s infinite;
+    }
+}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

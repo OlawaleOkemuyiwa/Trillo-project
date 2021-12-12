@@ -1,0 +1,64 @@
+:root { //root = html with higher specificity(pseudo class > element). Used to set CSS custom properties(i.e CSS variables) instead of using SASS variables. The advantage of CSS variables is that they can be manipulated in JS, be editted in the dev tools, easier to use in the calc function, they cascade and can be inherited 
+    --color-primary: #eb3f64;
+    --color-primary-light: #FF3366;
+    --color-primary-dark: #BA265D;
+    --color-grey-light-1: #faf9f9;
+    --color-grey-light-2: #f4f2f2;
+    --color-grey-light-3: #f0eeee;
+    --color-grey-light-4: #ccc;
+    --color-grey-dark-1: #333;
+    --color-grey-dark-2: #777;
+    --color-grey-dark-3: #999;
+    --color-black: #000;
+
+    --font-default-font-size: 1.6rem;
+
+    --shadow-dark: 0 2rem 6rem rgba(0, 0, 0, .3);
+    --shadow-light: 0 2rem 5rem rgba(0,0,0, .06);
+
+    --line-grey: 1px solid var(--color-grey-light-2);
+}
+
+
+//The breakpoints used here are not the width range of different devices screens but are set to where the design starts to break (This is th best approach to media queries)
+$bp-largest: 75em;              //1200px
+$bp-large: 68.75em;             //1100px
+$bp-medium: 56.25em;            //900px
+$bp-small: 37.5em;              //600px
+$bp-smallest: 31.25em;          //500px
+
+
+*,
+*::after,
+*::before {
+    margin: 0;
+    padding: 0;
+    box-sizing: inherit;
+}
+
+html {
+    box-sizing: border-box;
+    font-size: 62.5%;           //1rem = 10px
+
+    @media only screen and (max-width: $bp-large)  {
+        font-size: 50%;         //1rem = 8px
+    }
+}
+
+body {
+    font-family: "Open Sans", sans-serif;
+    font-weight: 400;
+    color: var(--color-grey-dark-2);
+    line-height: 1.6;
+    background-image: linear-gradient(
+        to right bottom,
+        var(--color-primary-light),
+        var(--color-primary-dark)
+    );
+
+    background-size: cover;  //i think these styles became redundant at the end of the project
+    background-repeat: no-repeat;
+    min-height: 100vh;
+}
+
+//write html for the general layout and in the layout markup use placeholder text(also placeholder background-colors, height). Use css to structure/design the layout. Take each sections of the layout 1 after the other, write their html content and also style with css starting from each parent element to the youngest child.
